@@ -13,6 +13,7 @@ const takeAttend = (req, res) => {
     date: req.body.date,
   };
   console.log({ data });
+
   //Calling FaceAPI
   const apidata = {
     path: data.img,
@@ -33,6 +34,7 @@ const takeAttend = (req, res) => {
           roll_no: item[0],
         };
       });
+
 
       // console.log("newList", JSON.parse(newlist));
       const newentry = new Attendence({
@@ -80,7 +82,43 @@ const getAttend = (req, res) => {
     });
   });
 };
+
+const manageStudent = (req, res) => {
+  if (!req.body) {
+    return res.status(404).json({
+      msg: "Request not fund",
+    });
+  }
+  
+  const data = {
+    img: req.body.img,
+    name: req.body.name,
+  };
+  console.log({ data });
+
+  
+  fetch("http://a9510a61882a.ngrok.io/manageStudent", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+    body: JSON.stringify(data),
+  }).then(resp => resp.json()).then((done) => {
+    return res.status(200).json({
+      error: false,
+      msg: "Student Information is Added"
+    })
+  }).catch(err => {
+    return res.status(403).json({
+      error: true,
+      msg:"ERROR in Adding Information"
+})      
+  })
+
+
+}
 module.exports = {
   takeAttend,
   getAttend,
+  manageStudent
 };

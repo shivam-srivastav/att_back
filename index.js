@@ -27,9 +27,16 @@ const stage = require("./config")[environment];
 //         console.error(`Error connecting to the database. \n${err}`);
 //     })
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(cors());
+// app.use(bodyParser.json());
+
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(cors())
+app.use('/', express.static(__dirname+'/public'));
+app.use('/uploads', express.static(__dirname+'/public/uploads'));
 
 db.on(
   "error",

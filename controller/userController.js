@@ -1,6 +1,6 @@
 const { User } = require("../model");
 const jwt = require("jsonwebtoken");
-register = (req, res) => {
+const register = (req, res) => {
   console.log(req.body);
   if (!req.body) {
     return res.status(400).json({
@@ -11,6 +11,7 @@ register = (req, res) => {
     name: req.body.name,
     email: req.body.email,
     user_id: req.body.userid,
+    password:req.body.password,
     role: req.body.role,
     roll_no: req.body.roll_no,
     profile_pic: req.body.profile_pic,
@@ -40,7 +41,8 @@ register = (req, res) => {
     });
   console.log(post_user);
 };
-login = (req, res) => {
+
+const login = (req, res) => {
   if (!req.body) {
     return res.status(402).json({
       message: "Error:404",
@@ -55,6 +57,7 @@ login = (req, res) => {
         status: "404",
       });
     }
+    console.log(user);
     if (user.password !== req.body.password) {
       return res.status(402).json({
         message: "Invalid Password",
@@ -79,7 +82,7 @@ login = (req, res) => {
     // })
   });
 };
-getuser = (req, res) => {
+const getuser = (req, res) => {
   if (!req.header("token")) {
     return res.status(404).json({
       message: "Request not found",

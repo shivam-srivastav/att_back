@@ -24,12 +24,20 @@ const AttendenceSchema = new Schema({
   data: { type: Array },
 });
 
+const PhotoSchema = new Schema({
+  filename: { type: String },
+  url: { type: String },
+  name: { type: String }
+});
+
 const User = mongoose.model("User", UserSchema);
 const Classroom = mongoose.model("Classroom", ClassroomSchema);
 const Attendence = mongoose.model("Attendence", AttendenceSchema);
+const Photo = mongoose.model("Photo", PhotoSchema);
 
 module.exports = {
   User,
   Classroom,
   Attendence,
+  Photo
 };
